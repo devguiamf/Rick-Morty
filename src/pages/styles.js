@@ -34,48 +34,94 @@ export const List = styled.FlatList`
     margin-top: 20px;
 `;
 
-export const User = styled.View`
-    align-items: center;
-    margin: 0 20px 30px;
-`;
+export const User = styled.View` 
+  width: 400px;
+  height: 150px;
+  background-color: #393D3F;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 20px;
+  `;
 
 export const Avatar = styled.Image`
-    width: 64px;
-    height: 64px;
-    border-radius: 32px;
-    background: #eee;
+    width: 120px;
+    height: 150px;
+    border-radius: 6px;
+`;
+
+export const Detail = styled.View`
+  width: 200px;  
 `;
 
 export const Name = styled.Text`
     font-size: 14px;
-    color: #333;
+    color: white;
     font-weight: bold;
     margin-top: 4px;
-    text-align: center;
+    margin-left: 5px;
+    text-align: left;
 `;
 
-export const Bio = styled.Text.attrs({
-    numberOfLines: 2,
-})`
-    font-size: 13px;
-    line-height: 18px;
-    color: #999;
-    margin-top: 5px;
-    text-align: center;
+export const DetailStatus = styled.View`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 5px;
 `;
+
+export const DetailStatus2 = styled.View`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 10px;
+`;
+
+export const SubTitle = styled.Text`
+  font-size: 10px;
+  color: grey;
+  margin-left: 10px;
+`;
+
+export const SubTitle2 = styled.Text`
+  font-size: 12px;
+  color: white;
+  margin-left: 10px;
+`;
+
+
+export const StatusAlive = styled.View`
+width: 10px; 
+height: 10px;
+border-radius: 5px;
+background-color: green;
+margin-left: 5px;
+align-items: center;
+`;
+
+export const StatusDeath = styled.View`
+width: 10px; 
+height: 10px;
+border-radius: 5px;
+background-color: red;
+margin-left: 5px;
+align-items: center;
+`;
+
+
 
 export const ProfileButton = styled(RectButton)`
-    margin-top: 10px;
-    align-self: stretch;
+    margin-top: 5px;
+    margin-left: 15px;
     border-radius: 4px;
     background: #3498db;
     justify-content: center;
     align-items: center;
-    height: 36px;
+    height: 20px;
+    width: 80px;
 `;
 
 export const ProfileButtonText = styled.Text`
-    font-size: 14px;
+    font-size: 10px;
     font-weight: bold;
     color: #fff;
     text-transform: uppercase;

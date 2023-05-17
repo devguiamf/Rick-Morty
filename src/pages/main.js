@@ -1,14 +1,15 @@
 import React, { Component } from "react";
-import { Keyboard, ActivityIndicator } from 'react-native';
+import { Keyboard, ActivityIndicator, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { Container, Form, Input, SubmitButton, List, User, Avatar, Name, Bio, ProfileButton, ProfileButtonText } from './styles';
+import { Container, Form, Input, SubmitButton, SubTitle, SubTitle2,DetailStatus2, StatusDeath, StatusAlive, DetailStatus, List, User, Avatar, Name, Bio, ProfileButton, ProfileButtonText, Detail } from './styles';
 import api from '../services/api';
+import axios, { formToJSON } from "axios";
 
 export default class Main extends Component {
 
     state = {
-        newUser: '',
+        character: '',
         users: [],
         loading: false,
     }
@@ -31,37 +32,43 @@ export default class Main extends Component {
 
     handleAddUser = async () => {
         try {
-            const { users, newUser } = this.state;
+            const { users, character } = this.state;
 
             this.setState({ loading: true });
 
-            const response = await api.get(`/users/${newUser}`);
-
+            const response = await api.get(`/character/?name=${character}`);
+            const episodes = response.data.results[0].episode[0]
+            const firstEpisode = await axios.get(episodes)
+            
             const data = {
-                name: response.data.name,
-                login: response.data.login,
-                bio: response.data.bio,
-                avatar: response.data.avatar_url,
+                name: response.data.results[0].name,
+                id: response.data.results[0].id,
+                status:response.data.results[0].status,
+                image:response.data.results[0].image,
+                species: response.data.results[0].species,
+                location: response.data.results[0].location.name,
+                firstEpisode: firstEpisode.data.name
             };
             
-
             this.setState({
                 users: [data, ...users],
-                newUser: '',
+                character: '',
                 loading: false,
             });
 
             Keyboard.dismiss();
+            
 
         } catch (error) {
             alert('Usuário não encontrado');
+            console.log(error);
             this.setState({ loading: false });
         }
     }
 
     render() {
 
-        const { users, newUser, loading } = this.state;
+        const { users, character, loading } = this.state;
 
         return (
             <Container>
@@ -70,8 +77,8 @@ export default class Main extends Component {
                         autoCorrect={false}
                         autoCapitalize="none"
                         placeholder="Adicionar usuário"
-                        value={newUser}
-                        onChangeText={text => this.setState({ newUser: text })}
+                        value={character}
+                        onChangeText={text => this.setState({ character: text })}
                         returnKeyType="send"
                         onSubmitEditing={this.handleAddUser}
                     />
@@ -83,29 +90,47 @@ export default class Main extends Component {
                 <List
                     showVerticalScrollIndicator={false}
                     data={users}
-                    keyExtractor={user => user.login}
+                    // keyExtractor={user => user.login}
                     renderItem={({ item }) => (
                         <User>
-                            <Avatar source={{ uri: item.avatar }} />
-                            <Name>{item.name}</Name>
-                            <Bio>{item.bio}</Bio>
+                            <Avatar source={{ uri: item.image }} />
+                            <Detail>
+                                <Name>{item.name}</Name>
+                                <DetailStatus>
+                                    {item.status === 'Alive' ? (<StatusAlive></StatusAlive>): (<StatusDeath></StatusDeath>) }
+                                    <SubTitle>{item.species}</SubTitle>
+                                </DetailStatus>
+                                <DetailStatus>
+                                    <SubTitle>Ultima aparição:</SubTitle>
+                                </DetailStatus>
+                                <SubTitle2>{item.location}</SubTitle2>
+                                <DetailStatus2>
+                                    <SubTitle>Primeiro episódio</SubTitle>
+                                </DetailStatus2>
+                                <SubTitle2>{item.firstEpisode}</SubTitle2>
 
-                            <ProfileButton onPress={() => {
-                                this.props.navigation.navigate('user', { user: item });
-                            }}>
-                                <ProfileButtonText>Ver perfil</ProfileButtonText>
-                            </ProfileButton>
+                                <DetailStatus>
+                                    <ProfileButton onPress={() => {
+                                        this.props.navigation.navigate('character', { character: item });
+                                        }}>
+                                    <Icon name='more' size={20} color='#fff' />
+                                    </ProfileButton>
 
-                            <ProfileButton onPress={() => {
-                                this.setState({ users: users.filter(user => user.login !== item.login) })
-                            }}
-                                style={{ backgroundColor: '#ffc0cb' }}>
-                                <ProfileButtonText>Excluir</ProfileButtonText>
-                            </ProfileButton>
+                                    <ProfileButton onPress={() => {
+                                    this.setState({ users: users.filter(char => char.id !== item.id) })
+                                    }}
+                                    style={{ backgroundColor: '#FF4141' }
+                                    }>
+                                    
+                                    <Icon name='delete' size={20} color='#fff' />
+                                    </ProfileButton>
+                                </DetailStatus>
+                            </Detail>
+
+                           
                         </User>
                     )}
                 />
-
             </Container>
         )
     }
