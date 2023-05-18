@@ -37,6 +37,7 @@ export default class Main extends Component {
             this.setState({ loading: true });
 
             const response = await api.get(`/character/?name=${character}`);
+            console.log(response);
             const episodes = response.data.results[0].episode[0]
             const firstEpisode = await axios.get(episodes)
             
