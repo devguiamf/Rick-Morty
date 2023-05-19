@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { Container, Form, Input, SubmitButton, SubTitle, SubTitle2,DetailStatus2, StatusDeath, StatusAlive, DetailStatus, List, User, Avatar, Name, Bio, ProfileButton, ProfileButtonText, Detail } from './styles';
 import api from '../services/api';
-import axios, { formToJSON } from "axios";
+import axios from "axios";
 
 export default class Main extends Component {
 
@@ -37,10 +37,9 @@ export default class Main extends Component {
             this.setState({ loading: true });
 
             const response = await api.get(`/character/?name=${character}`);
-            console.log(response);
             const episodes = response.data.results[0].episode[0]
             const firstEpisode = await axios.get(episodes)
-            
+            console.log(firstEpisode.data, 'EPISODES');
             const data = {
                 name: response.data.results[0].name,
                 id: response.data.results[0].id,
@@ -48,8 +47,11 @@ export default class Main extends Component {
                 image:response.data.results[0].image,
                 species: response.data.results[0].species,
                 location: response.data.results[0].location.name,
-                firstEpisode: firstEpisode.data.name
+                firstEpisode: firstEpisode.data.name,
+                episodeId: firstEpisode.data.id
             };
+
+            console.log(data, 'DATA');
             
             this.setState({
                 users: [data, ...users],
@@ -127,8 +129,6 @@ export default class Main extends Component {
                                     </ProfileButton>
                                 </DetailStatus>
                             </Detail>
-
-                           
                         </User>
                     )}
                 />
