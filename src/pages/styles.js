@@ -7,28 +7,27 @@ export const Image = styled.View`
 `;
 
 export const Container = styled.View`
+  height: 100%;
   padding: 30px;
 `;
 
 export const Form = styled.View`
     flex-direction: row;
     padding-bottom: 20px;
-    border-bottom-width: 1px;
-    border-color: #eee;
 `;
 
 export const Input = styled.TextInput`
     flex: 1;
     height: 40px;
-    background: #eee;
+    background: #F2F5F7;
     border-radius: 4px;
     padding: 0 15px;
-    border: 1px solid #eee;
+    border: 1px solid #F2F5F7;
 `;
 export const SubmitButton = styled(RectButton)`
     justify-content: center;
     align-items: center;
-    background: #3498db;
+    background: #393D3F;
     border-radius: 4px;
     margin-left: 10px;
     padding: 0 12px;
@@ -46,12 +45,12 @@ export const User = styled.View`
   display: flex;
   flex-direction: row;
   margin-bottom: 20px;
-  `;
+`;
 
 export const Avatar = styled.Image`
     width: 120px;
     height: 150px;
-    border-radius: 6px;
+    border-radius: 4px;
 `;
 
 export const Detail = styled.View`
@@ -142,7 +141,7 @@ export const Avatarperfil = styled.Image`
   width: 100px;
   height: 100px;
   border-radius: 50px;
-  background: #eee;
+  background: #F2F5F7;
 `;
 
 export const Nameperfil = styled.Text`
@@ -180,7 +179,7 @@ export const OwnerAvatar = styled.Image`
   width: 42px;
   height: 42px;
   border-radius: 21px;
-  background: #eee;
+  background: #F2F5F7;
 `;
 
 export const Info = styled.View`

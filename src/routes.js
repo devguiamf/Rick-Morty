@@ -5,6 +5,7 @@ import Main from './pages/main'
 import Login from './pages/login'
 import User from './pages/user'
 import Register from "./pages/register";
+import Teste from "./pages/teste";
 
 const Stack = createStackNavigator()
 
@@ -24,15 +25,15 @@ export default function Routes() {
                     },
                     }}/>
                 <Stack.Screen name="main" component={Main} options={{
-                    title: 'GitHub VIEWER',
+                    title: 'Rick and Morty',
                     headerTitleAlign: 'center',
                     headerLeft: null,
                     headerStyle: {
-                        backgroundColor: '#3498db'
+                        backgroundColor: '#0D0D0D'
                     },
                     headerTitleStyle: {
                         fontWeight: 'bold',
-                        color: '#fff',
+                        color: '#F2F5F7',
                     },
                 }}/>
                 <Stack.Screen name="user" component={User} options={{
@@ -49,6 +50,18 @@ export default function Routes() {
                 }}/> 
                 <Stack.Screen name="register" component={Register} options={{
                     title: 'Rick and Morty - Cadastro',
+                    headerTitleAlign: 'center',
+                    headerLeft: null,
+                    headerStyle: {
+                        backgroundColor: '#0D0D0D'
+                    },
+                    headerTitleStyle: {
+                        fontWeight: 'bold',
+                        color: '#F2F5F7',
+                    },
+                }}/>
+                <Stack.Screen name="teste" component={Teste} options={{
+                    title: 'TESTE',
                     headerTitleAlign: 'center',
                     headerLeft: null,
                     headerStyle: {

@@ -1,6 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useState } from "react";
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, ImageBackground } from 'react-native';
+import { Directions, RawButton } from 'react-native-gesture-handler';
 
 const Register = () => {
     const background = { uri: 'https://static.wixstatic.com/media/8f3506_2b2576482b1f4392ba2efc06bdf48e91~mv2.jpg/v1/fill/w_537,h_716,al_c,q_85,enc_auto/8f3506_2b2576482b1f4392ba2efc06bdf48e91~mv2.jpg' }
@@ -13,7 +14,12 @@ const Register = () => {
     const navigation = useNavigation();
 
     const resgisterNewUser = () => {
-        navigation.navigate('login')
+        if(name != '' && phone != '' && cpf != '' && email != '' && course != ''){
+            navigation.navigate('login')
+        }else{
+            alert('Necessário preencher todos os campos!')
+        }
+        
     };
 
     return (

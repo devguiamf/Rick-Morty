@@ -70,7 +70,7 @@ export default class Main extends Component {
     render() {
 
         const { users, character, loading } = this.state;
-        const background = { uri: "https://images4.alphacoders.com/936/936813.png" }
+        const background = { uri: "https://e0.pxfuel.com/wallpapers/519/411/desktop-wallpaper-rick-and-morty-iphone-within-amazing-rick-morty-wallpape-papel-de-parede-android-de-desenhos-animados-marshmello.jpg" }
         return (
             <ImageBackground source={background} resizeMode="cover" style={Image}>
                 <Container>
@@ -85,7 +85,7 @@ export default class Main extends Component {
                             onSubmitEditing={this.handleAddUser}
                         />
                         <SubmitButton loadind={loading} onPress={this.handleAddUser}>
-                            {loading ? (<ActivityIndicator color="#fff" />) : (<Icon name='add' size={20} color='#fff' />)}
+                            {loading ? (<ActivityIndicator color="#F2F5F7" />) : (<Icon name='add' size={20} color='#F2F5F7' />)}
                         </SubmitButton>
                     </Form>
                     <List
@@ -114,7 +114,7 @@ export default class Main extends Component {
                                         <ProfileButton onPress={() => {
                                             this.props.navigation.navigate('character', { character: item });
                                         }}>
-                                            <Icon name='more' size={20} color='#fff' />
+                                            <Icon name='more' size={20} color='#F2F5F7' />
                                         </ProfileButton>
 
                                         <ProfileButton onPress={() => {
@@ -123,7 +123,7 @@ export default class Main extends Component {
                                             style={{ backgroundColor: '#FF4141' }
                                             }>
 
-                                            <Icon name='delete' size={20} color='#fff' />
+                                            <Icon name='delete' size={20} color='#F2F5F7' />
                                         </ProfileButton>
                                     </DetailStatus>
                                 </Detail>
