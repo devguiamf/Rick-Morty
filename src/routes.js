@@ -3,9 +3,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Main from './pages/main'
 import Login from './pages/login'
-import User from './pages/user'
+import Character from './pages/character'
 import Register from "./pages/register";
-import Teste from "./pages/teste";
 
 const Stack = createStackNavigator()
 
@@ -36,8 +35,8 @@ export default function Routes() {
                         color: '#F2F5F7',
                     },
                 }}/>
-                <Stack.Screen name="user" component={User} options={{
-                    title: 'Perfil do Usuário',
+                <Stack.Screen name="character" component={Character} options={{
+                    title: 'Personagens do 1 episódio',
                     headerTitleAlign: 'center',
                     headerTintColor: '#fff',
                     headerStyle: {
@@ -60,18 +59,6 @@ export default function Routes() {
                         color: '#F2F5F7',
                     },
                 }}/>
-                <Stack.Screen name="teste" component={Teste} options={{
-                    title: 'TESTE',
-                    headerTitleAlign: 'center',
-                    headerLeft: null,
-                    headerStyle: {
-                        backgroundColor: '#0D0D0D'
-                    },
-                    headerTitleStyle: {
-                        fontWeight: 'bold',
-                        color: '#F2F5F7',
-                    },
-                }}/> 
             </Stack.Navigator>
         </NavigationContainer>
     )

@@ -48,7 +48,8 @@ export default class Main extends Component {
                 image: response.data.results[0].image,
                 species: response.data.results[0].species,
                 location: response.data.results[0].location.name,
-                firstEpisode: firstEpisode.data.name
+                firstEpisode: firstEpisode.data.name,
+                firstEpisodeNumber: response.data.results[0].episode[0]
             };
 
             this.setState({
