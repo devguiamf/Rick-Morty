@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { Keyboard, ActivityIndicator, StyleSheet } from 'react-native';
+import { Keyboard, ActivityIndicator, StyleSheet, ImageBackground } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { Container, Form, Input, SubmitButton, SubTitle, SubTitle2,DetailStatus2, StatusDeath, StatusAlive, DetailStatus, List, User, Avatar, Name, Bio, ProfileButton, ProfileButtonText, Detail } from './styles';
+import { Container, Image, Form, Input, SubmitButton, SubTitle, SubTitle2, DetailStatus2, StatusDeath, StatusAlive, DetailStatus, List, User, Avatar, Name, Bio, ProfileButton, ProfileButtonText, Detail } from './styles';
 import api from '../services/api';
 import axios, { formToJSON } from "axios";
 
@@ -40,17 +40,17 @@ export default class Main extends Component {
             console.log(response);
             const episodes = response.data.results[0].episode[0]
             const firstEpisode = await axios.get(episodes)
-            
+
             const data = {
                 name: response.data.results[0].name,
                 id: response.data.results[0].id,
-                status:response.data.results[0].status,
-                image:response.data.results[0].image,
+                status: response.data.results[0].status,
+                image: response.data.results[0].image,
                 species: response.data.results[0].species,
                 location: response.data.results[0].location.name,
                 firstEpisode: firstEpisode.data.name
             };
-            
+
             this.setState({
                 users: [data, ...users],
                 character: '',
@@ -58,7 +58,7 @@ export default class Main extends Component {
             });
 
             Keyboard.dismiss();
-            
+
 
         } catch (error) {
             alert('Usuário não encontrado');
@@ -70,69 +70,69 @@ export default class Main extends Component {
     render() {
 
         const { users, character, loading } = this.state;
-
+        const background = { uri: "https://e0.pxfuel.com/wallpapers/519/411/desktop-wallpaper-rick-and-morty-iphone-within-amazing-rick-morty-wallpape-papel-de-parede-android-de-desenhos-animados-marshmello.jpg" }
         return (
-            <Container>
-                <Form>
-                    <Input
-                        autoCorrect={false}
-                        autoCapitalize="none"
-                        placeholder="Adicionar usuário"
-                        value={character}
-                        onChangeText={text => this.setState({ character: text })}
-                        returnKeyType="send"
-                        onSubmitEditing={this.handleAddUser}
-                    />
-                    <SubmitButton loadind={loading} onPress={this.handleAddUser}>
-                        {loading ? (<ActivityIndicator color="#fff" />) : (<Icon name='add' size={20} color='#fff' />)}
-                    </SubmitButton>
-                </Form>
+            <ImageBackground source={background} resizeMode="cover" style={Image}>
+                <Container>
+                    <Form>
+                        <Input
+                            autoCorrect={false}
+                            autoCapitalize="none"
+                            placeholder="Adicionar usuário"
+                            value={character}
+                            onChangeText={text => this.setState({ character: text })}
+                            returnKeyType="send"
+                            onSubmitEditing={this.handleAddUser}
+                        />
+                        <SubmitButton loadind={loading} onPress={this.handleAddUser}>
+                            {loading ? (<ActivityIndicator color="#F2F5F7" />) : (<Icon name='add' size={20} color='#F2F5F7' />)}
+                        </SubmitButton>
+                    </Form>
+                    <List
+                        showVerticalScrollIndicator={false}
+                        data={users}
+                        // keyExtractor={user => user.login}
+                        renderItem={({ item }) => (
+                            <User>
+                                <Avatar source={{ uri: item.image }} />
+                                <Detail>
+                                    <Name>{item.name}</Name>
+                                    <DetailStatus>
+                                        {item.status === 'Alive' ? (<StatusAlive></StatusAlive>) : (<StatusDeath></StatusDeath>)}
+                                        <SubTitle>{item.species}</SubTitle>
+                                    </DetailStatus>
+                                    <DetailStatus>
+                                        <SubTitle>Ultima aparição:</SubTitle>
+                                    </DetailStatus>
+                                    <SubTitle2>{item.location}</SubTitle2>
+                                    <DetailStatus2>
+                                        <SubTitle>Primeiro episódio</SubTitle>
+                                    </DetailStatus2>
+                                    <SubTitle2>{item.firstEpisode}</SubTitle2>
 
-                <List
-                    showVerticalScrollIndicator={false}
-                    data={users}
-                    // keyExtractor={user => user.login}
-                    renderItem={({ item }) => (
-                        <User>
-                            <Avatar source={{ uri: item.image }} />
-                            <Detail>
-                                <Name>{item.name}</Name>
-                                <DetailStatus>
-                                    {item.status === 'Alive' ? (<StatusAlive></StatusAlive>): (<StatusDeath></StatusDeath>) }
-                                    <SubTitle>{item.species}</SubTitle>
-                                </DetailStatus>
-                                <DetailStatus>
-                                    <SubTitle>Ultima aparição:</SubTitle>
-                                </DetailStatus>
-                                <SubTitle2>{item.location}</SubTitle2>
-                                <DetailStatus2>
-                                    <SubTitle>Primeiro episódio</SubTitle>
-                                </DetailStatus2>
-                                <SubTitle2>{item.firstEpisode}</SubTitle2>
-
-                                <DetailStatus>
-                                    <ProfileButton onPress={() => {
-                                        this.props.navigation.navigate('character', { character: item });
+                                    <DetailStatus>
+                                        <ProfileButton onPress={() => {
+                                            this.props.navigation.navigate('character', { character: item });
                                         }}>
-                                    <Icon name='more' size={20} color='#fff' />
-                                    </ProfileButton>
+                                            <Icon name='more' size={20} color='#F2F5F7' />
+                                        </ProfileButton>
 
-                                    <ProfileButton onPress={() => {
-                                    this.setState({ users: users.filter(char => char.id !== item.id) })
-                                    }}
-                                    style={{ backgroundColor: '#FF4141' }
-                                    }>
-                                    
-                                    <Icon name='delete' size={20} color='#fff' />
-                                    </ProfileButton>
-                                </DetailStatus>
-                            </Detail>
+                                        <ProfileButton onPress={() => {
+                                            this.setState({ users: users.filter(char => char.id !== item.id) })
+                                        }}
+                                            style={{ backgroundColor: '#FF4141' }
+                                            }>
 
-                           
-                        </User>
-                    )}
-                />
-            </Container>
+                                            <Icon name='delete' size={20} color='#F2F5F7' />
+                                        </ProfileButton>
+                                    </DetailStatus>
+                                </Detail>
+
+                            </User>
+                        )}
+                    />
+                </Container>
+            </ImageBackground>
         )
     }
 }
